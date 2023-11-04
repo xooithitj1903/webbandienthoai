@@ -1,0 +1,91 @@
+﻿@model doanphanmem.Models.Cart
+
+@{
+    ViewBag.Title = "ShowCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align: center; padding: 30px 0px; ">Giỏ Hàng Của Bạn</h2>
+<a style=" color: red; text-decoration: none; padding: 1px 0px; margin-left: 578px;" href="@Url.Action("Index","Product")">TIếp tục mua hàng</a>
+@if (Model != null)
+{
+    <table class="table">
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            decimal total = item.quantity * (decimal)item.product.Price.Value;
+            <div style="margin-left: 300px; margin-top: 20px; width: 652px; padding: 57px; border: 1px solid #e9e9e9; border-radius: 25px; box-shadow: 3px 3px #c7c4c4; margin-bottom: 20px; ">
+                <div style="display: flex; justify-content: space-between;">
+                    <img src="@Url.Content(item.product.ImagePro)" height="50" width="50" />
+                    <div>
+                        <p>@Html.DisplayFor(model => item.product.NamePro)</p>
+                        <p class="price">@Html.DisplayFor(model => item.product.Price)</p>
+                    </div>
+                    <div>
+                        <a style="color: red; text-decoration: none; padding-left: 86px;" href="@Url.Action("RemoveCart","ShoppingCart", new {id = item.product.ProductID})">Xoa</a>
+                        <p style="padding-left: 17px;">
+                            @using (Html.BeginForm("update_cart_quantity", "ShoppingCart"))
+                            {
+                                <input type="hidden" value="@item.product.ProductID" name="ID" style="border: 0px; width: 35px;" />
+                                <input type="number" value="@item.quantity" name="carquantity" style="border: 0px; width: 35px;" required min="1" />
+                                <input type="submit" value="Update" style="color: red; background-color: white; border: 0px;" />
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <p style="font-size: 20px; padding-top: 35px;">Chương trình khuyến mãi</p>
+                    <p>Trả góp 12 tháng 0 lãi, 0đ trả trước qua Samsung Finance+</p>
+                    <p>Nhận ngay ưu đãi YouTube Premium dành cho chủ sở hữu Samsung Galaxy</p>
+                </div>
+            </div>
+        }
+        @{
+            decimal totalall = 0;
+        }
+        @foreach (var item in Model.Items)
+        {
+            decimal total = item.quantity * (decimal)item.product.Price.Value;
+            totalall = totalall+ total;
+        }
+    <div style=" display: flex; justify-content: space-between;">
+        <div style="display: flex; margin-top: 200px;">
+            <p style="margin-right: 15px;">Tổng Tiền</p>
+            <p class="price">@totalall</p>
+        </div>
+        <div style="margin-top: 200px;">
+            <a href="@Url.Action("DatHang","ShoppingCart")" style=" color: red; font-size: 20px;">Đặt Hàng</a>
+        </div>
+    </div>
+
+        
+    </tbody>
+
+    </table>
+}
+else
+{
+    @Html.Partial("EmptyCart")
+}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var priceElements = document.querySelectorAll(".price");
+
+        priceElements.forEach(function (element) {
+            var priceValue = element.textContent;
+            var formattedPrice = formatPrice(priceValue);
+            element.textContent = formattedPrice;
+        });
+
+        function formatPrice(price) {
+            // Chuyển đổi thành số nguyên
+            var integerPart = parseInt(price);
+            // Thêm dấu phẩy ngăn cách hàng ngàn
+            var formattedPrice = integerPart.toLocaleString("vi-VN");
+            // Thêm đơn vị tiền tệ
+            formattedPrice += " đ";
+            return formattedPrice;
+        }
+    });
+</script>
+

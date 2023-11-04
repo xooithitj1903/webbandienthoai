@@ -1,0 +1,3 @@
+﻿@model doanphanmem.Models.Category
+    @Html.DropDownListFor(model => model.NameCate, new SelectList(Model.ListCate.OrderBy(Model => Model.NameCate),"IDCate","NameCate"),"--Select Cate--")
+

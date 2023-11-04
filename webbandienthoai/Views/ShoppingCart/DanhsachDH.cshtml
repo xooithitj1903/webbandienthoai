@@ -1,0 +1,33 @@
+﻿@model IEnumerable<webbandienthoai.Models.OrderPro>
+
+@{
+    ViewBag.Title = "DanhsachDH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh Sách Lịch Sự Đặt Hàng Của Khách Hàng</h2>
+
+<table class="table">
+    <div style="display: flex;">
+        <p style="padding-right: 190px;">
+            Ngày Đặt Hàng
+        </p>
+        <p>
+            Địa Chỉ giao hàng
+        </p>
+    </div>
+
+@foreach (var item in Model) {
+    <div style="display: flex;">
+        <p style="padding-right: 135px;">
+            @Html.DisplayFor(modelItem => item.DateOrder)
+        </p>
+        <p style="padding-right: 200px;">
+            @Html.DisplayFor(modelItem => item.AddressDeliverry)
+        </p>
+        <p>
+            <a style="text-decoration:none; color: red;" href="@Url.Action("chitiet","ShoppingCart", new { id = item.ID })">Chi Tiết ĐƠn Hàng</a>
+        </p>
+    </div>
+}
+</table>

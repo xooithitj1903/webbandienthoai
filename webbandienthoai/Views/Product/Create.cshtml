@@ -1,0 +1,61 @@
+﻿@model webbandienthoai.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align: center;">Thêm mới sản phẩm</h2>
+
+
+@using (Html.BeginForm("Create","Product", FormMethod.Post, new {enctype="multipart/form-data"}))
+{
+    <table>
+        <tr>
+            <div style="display: flex; margin-left: 400px; padding: 30px 0px; ">
+                <p style=" margin: 0px;">Nhập Tên sản phẩm: </p>
+                <input id="NamePro" name="NamePro" type="text" value="" style="border: 0px; border-bottom: 0.5px solid#00000030; margin-left: 20px; width: 500px; ">
+            <td>@Html.ValidationMessageFor(model => model.NamePro)</td>
+            </div>
+        </tr>
+        <tr>
+            <div style="display: flex; margin-left: 400px; padding: 30px 0px; ">
+                <p style=" margin: 0px;">Nhập giá sản phẩm: </p>
+                <input id="Price" name="Price" type="text" value="" style="border: 0px; border-bottom: 0.5px solid#00000030; margin-left: 20px; width: 500px; ">
+            <td>@Html.ValidationMessageFor(model => model.Price)</td>
+            </div>
+        </tr>
+        <tr>
+            <div style="display: flex; margin-left: 400px; padding: 30px 0px; ">
+                <p style=" margin: 0px;">Chọn loại sản phẩm: </p>
+                <p>@{Html.RenderAction("SelectCate", "Product");}</p>
+            </div>
+        </tr>
+        <tr>
+            <div style="display: flex; margin-left: 400px; padding: 30px 0px; ">
+                <p style=" margin: 0px;">Nhập số lượng sản phẩm nhập kho: </p>
+                <input id="DecriptionPro" name="DecriptionPro" type="text" value="" style="border: 0px; border-bottom: 0.5px solid#00000030; margin-left: 20px; width: 500px; ">
+            <td>@Html.ValidationMessageFor(model => model.DecriptionPro)</td>
+            </div>
+        </tr>
+        <tr>
+            <div style=" margin-left: 400px; padding: 30px 0px; ">
+        <div>
+            <p>@Html.LabelFor(model => model.ImagePro)</p>
+            <p>
+                <img src="@Url.Content(Model.ImagePro)" height="150" width="150" id="previewimg" />
+            </p>
+        </div>
+        <div>
+            <p>
+                <input type="file" name="UploadImages" onchange="ChangeImage(this, document.getElementById('previewimg'))" />
+            <p><input type="submit" value="Tạo Sản Phẩm" style=" padding: 5px 30px; border-radius: 10px; border: 1px; background-color: #ff255b;" /></p>
+            </p>
+        </div>
+        </div>
+        </tr>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

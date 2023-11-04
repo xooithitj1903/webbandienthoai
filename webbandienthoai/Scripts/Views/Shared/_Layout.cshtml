@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("CellPhoneS", "Index", "Product", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                </ul>
+                <ul class="nav navbar-nav" style="margin-top:-6px;">
+                    <li><span style="margin:0px;"><a style="text-decoration: none;" href="@Url.Action("ShowCart","ShoppingCart")"><img src="~/Content/images/user.jpg" style="height: 30px; width: 30px; margin-top: 10px; border-radius: 50%;" />@Html.Action("BagCart", "ShoppingCart")</a></span></li>
+                    @if (Session["ID"] == "admin")
+                    {
+                        <li style=" margin-top: 10px; "><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("DanhsachDH","ShoppingCart")">Lịch Sử Đặt Hàng</a></li>
+                        <li style=" margin-top: 10px; "><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("Index2","Product")">Chỉnh sửa Sản Phẩm</a></li>
+                        <li style=" margin-top: 10px; "><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("Index","Categories")">CHỉnh Sửa Danh Sách</a></li>
+                        <li style=" margin-top: 10px; "><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("Create","Product")">Thêm Sản Phẩm</a></li>
+
+                    }
+                    <li style="margin-top: 10px;"><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("Dangky","LoginUser")">Đăng Ký</a></li>
+                    <li style=" margin-top: 10px; "><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("Index","LoginUser")">Đăng Nhập</a></li>
+                    <li style=" margin-top: 10px; "><a style="padding: 0px 20px; color: white; text-decoration: none;" href="@Url.Action("Dangxuat","LoginUser")">Đăng Xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
